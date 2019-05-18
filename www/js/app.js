@@ -37,7 +37,21 @@ var mainView = app.views.create('.view-main', {
   }
 });
 
-var BaseURL = 'http://brandstudioz.co.in/hunt/public/api/';
+var BaseURL = 'http://brandstudioz.co.in/uts/';
+function statusMessage(status) {
+  if (status == 0) {
+    return 'No Network connection';
+  }
+  else if (status == 500) {
+    return 'Internal Server Error';
+  }
+  else if (status == 400) {
+    return 'Bad Request';
+  }
+  else {
+    return 'Something went wrong';
+  }
+}
 function login() {
   if ($$('#login-form')[0].checkValidity()) {
     var email = $$('#login-form input[name=email]').val();
@@ -48,7 +62,7 @@ function login() {
       password: password,
     };
     app.request({
-      url: BaseURL + 'testing-api',
+      url: BaseURL + 'login.php',
       method: 'POST',
       dataType: 'json',
       data: obj,
@@ -99,3 +113,4 @@ function shareApp() {
   var onError = function (msg) { };
   window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
 }
+
