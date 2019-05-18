@@ -1,0 +1,13 @@
+.login_ttl{
+    text-align: center;
+}
+.cstm_inpt{
+    border-bottom: 1px solid #000 !important;
+}
+.frm_dv {
+    text-align: center;
+}   
+.login_tbl {
+    width: 55%;
+    margin: 22px auto;
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#2196f3">
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+  <title>Sales Tracker</title>
+  <link rel="stylesheet" href="framework7/css/framework7.css">
+  <link rel="stylesheet" href="plugins/framework7-plugin-keypad/framework7.keypad.css">
+  <link rel="stylesheet" href="plugins/css-loader/style.css">
+  <link rel="stylesheet" href="css/custom.css">
+  <link rel="apple-touch-icon" href="img/f7-icon-square.png">
+  <link rel="icon" href="img/f7-icon.png">
+  <link rel="stylesheet" href="plugins/animate/animate.css">
+</head>
+
+<body class="color-theme-blue">
+  <div id="app">
+    <div class="statusbar"></div>
+    <div class="panel panel-left panel-cover">
+      <div class="page">
+        <div class="page-content bg-color-white">
+          <!-- Left Panel Content Goes Here -->
+          <div class="navbar bg-color-white color-green">
+            <div class="navbar-inner sliding">
+              <div class="title">Main Menu</div>
+            </div>
+          </div>
+          <div class="list no-hairlines no-hairlines-between mt-12">
+            <ul>
+              <li class="with-border profile-menu">
+                <a href="/profile/" class="item-link item-content panel-close">
+                  <div class="item-media">
+                    <i class="material-icons color-darkgray">person</i>
+                  </div>
+                  <div class="item-inner no-background-image">
+                    <div class="item-title">My Profile</div>
+                  </div>
+                </a>
+              </li>
+              <li class="with-border employees-menu">
+                <a href="/employees/" class="item-link item-content panel-close">
+                  <div class="item-media">
+                    <i class="material-icons color-darkgray">people</i>
+                  </div>
+                  <div class="item-inner no-background-image">
+                    <div class="item-title">Employees</div>
+                  </div>
+                </a>
+              </li>
+              <li class="with-border attendance-menu">
+                <a href="/attendance/" class="item-link item-content panel-close">
+                  <div class="item-media">
+                    <i class="material-icons color-darkgray">event_note</i>
+                  </div>
+                  <div class="item-inner no-background-image">
+                    <div class="item-title">Attendance</div>
+                  </div>
+                </a>
+              </li>
+              <li class="with-border clientvisit-menu">
+                <a href="/client-visit/" class="item-link item-content panel-close">
+                  <div class="item-media">
+                    <i class="material-icons color-darkgray">person_pin</i>
+                  </div>
+                  <div class="item-inner no-background-image">
+                    <div class="item-title">Client Visit</div>
+                  </div>
+                </a>
+              </li>
+              <li class="with-border">
+                <a href="/change-password/" class="item-link item-content panel-close">
+                  <div class="item-media">
+                    <i class="material-icons color-darkgray">vpn_key</i>
+                  </div>
+                  <div class="item-inner no-background-image">
+                    <div class="item-title">Change Password</div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a onclick="logout()" href="#" class="item-link item-content panel-close">
+                  <div class="item-media">
+                    <i class="material-icons color-darkgray">exit_to_app</i>
+                  </div>
+                  <div class="item-inner no-background-image">
+                    <div class="item-title">Logout</div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="version-number block block-strong no-margin-bottom text-align-center text-color-gray"
+            style="position: absolute;width: 100%;bottom: 0; font-weight: bold;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-right panel-reveal">
+      <div class="view view-init view-right" name="right" data-url="/">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-inner sliding">
+              <div class="title">Right Panel</div>
+            </div>
+          </div>
+          <div class="page-content">
+            <!-- Right Panel Content Goes Here -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="view view-main view-init ios-edges" data-url="/">
+      <div class="page">
+        <div class="page-content app-background">
+          <div class="block login-screen-section">
+            <div class="block padding no-margin text-align-center">
+              <img width="120" src="img/logo.png" />
+            </div>
+            <div class="block no-margin-top text-align-center">
+              <div class="card no-box-shadow">
+                <div class="card-content card-content-padding">
+                  <form class="list show-hairlines-ios no-hairlines text-align-left no-margin" id="login-form">
+                    <ul class="no-hairlines-between">
+                      <li class="item-content item-input">
+                        <div class="item-inner">
+                          <div class="item-title item-floating-label">Email</div>
+                          <div class="item-input-wrap">
+                            <input type="email" name="email" required validate>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="item-content item-input">
+                        <div class="item-inner">
+                          <div class="item-title item-floating-label">Password</div>
+                          <div class="item-input-wrap">
+                            <input class="input-end" type="password" name="password" required validate>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="item-content item-input">
+                        <div class="item-inner">
+                          <a href="#" onclick="login()" class="font-16 button button-fill margin-top">LOG
+                            IN</a>
+                        </div>
+                      </li>
+                    </ul>
+                  </form>
+                  <div class="block text-align-center margin">
+                    <div class="item-inner text-align-center font-16">
+                      <a href="#" onclick="resetPassword()">Forgot Password?</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="block text-align-center margin color-white">&copy; Techstreet Solutions Pvt. Ltd.</div>
+            <div class="block text-align-center no-margin">
+              <div class="chip chip-outline color-white">
+                <div class="chip-label">Version 1.0.0</div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="app-version">Version 1.0.0 <br/> &copy; Techstreet Solutions Pvt. Ltd.</div> -->
+        </div>
+      </div>
+    </div>
+    <script src="framework7/js/framework7.min.js"></script>
+    <script src="plugins/framework7-plugin-keypad/framework7.keypad.js"></script>
+    <script src="js/routes.js"></script>
+    <script src="js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    
+</body>
+
+</html>
