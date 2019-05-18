@@ -17,7 +17,26 @@ var app = new Framework7({
 });
 
 // Init/Create main view
-var mainView = app.views.create('.view-main');
+//var mainView = app.views.create('.view-main');
+
+var mainView = app.views.create('.view-main', {
+  url: '/',
+  on: {
+    init: function (event, page) {
+      var User = localStorage.User;
+      if (User) {
+        $$('.login-screen-section').hide();
+          this.router.navigate({
+            name: 'welcome',
+          });
+      }
+      else {
+        $$('.login-screen-section').show();
+      }
+    },
+  }
+});
+
 var BaseURL = 'http://brandstudioz.co.in/hunt/public/api/';
 function login() {
   if ($$('#login-form')[0].checkValidity()) {
@@ -46,7 +65,10 @@ function login() {
         if (data.ErrorCode == '0') {
           localStorage.setItem("User", JSON.stringify(data));
           window.plugins.toast.show("Login Success", 'long', 'bottom');
-          app.dialog.alert('Login Successfully');
+          app.views.main.router.navigate({
+            name: 'welcome',
+          });
+          //app.dialog.alert('Login Successfully');
         }
         else {
           window.plugins.toast.show(data.ErrorMessage, 'long', 'bottom');
@@ -59,4 +81,21 @@ function login() {
     })
   }
 }
- 
+function logout() {
+  localStorage.removeItem("User");
+  app.views.main.router.navigate('/');
+}
+function shareApp() {
+  if (app.device.android) {
+    var url = 'https://play.google.com/store/apps/details?id=com.sample';
+  }
+  if (app.device.ios) {
+    var url = 'https://play.google.com/store/apps/details?id=com.sample';
+  }
+  var options = {
+    url: url,
+  };
+  var onSuccess = function (result) { };
+  var onError = function (msg) { };
+  window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+}
