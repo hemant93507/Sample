@@ -100,7 +100,8 @@
             var email = $$('#contact_us_page input[name=email]').val();
             var mobile_number = $$('#contact_us_page input[name=mobile_number]').val();
             var message = $$('#contact_us_page textarea#message').val();
-            //alert("done1");
+            alert(lat);
+            alert(lon);
             var obj = {
               name: name,
               email: email,
@@ -157,7 +158,7 @@
               maximumAge: 3000
             }
             function onSuccess(position) {
-              SpinnerPlugin.activityStart('Loading...', { dimBackground: true });
+              //SpinnerPlugin.activityStart('Loading...', { dimBackground: true });
               var latitude = position.coords.latitude;
               var longitude = position.coords.longitude;
               //alert('Latitude: ' +latitude+ '\n' +'Longitude: '+longitude);
