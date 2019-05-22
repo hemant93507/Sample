@@ -89,7 +89,7 @@
     return {
       methods: {
         contactSubmit: function (lat, long) {
-          nativegeocoder.reverseGeocode(success, failure, lat, lon, { useLocale: true, maxResults: 1 });
+          nativegeocoder.reverseGeocode(success, failure, lat, long, { useLocale: true, maxResults: 1 });
           function success(result) {
             alert("done");
             // var firstResult = result[0];
@@ -158,8 +158,6 @@
               //SpinnerPlugin.activityStart('Loading...', { dimBackground: true });
               var latitude = position.coords.latitude;
               var longitude = position.coords.longitude;
-              var a = "a";
-              var b = "b";
               //alert('Latitude: ' +latitude+ '\n' +'Longitude: '+longitude);
               //console.log("latitude"+latitude);
               self.contactSubmit(latitude, longitude);
