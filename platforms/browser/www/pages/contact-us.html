@@ -124,7 +124,7 @@
               success: function (data, status, xhr) {
                 alert("data");
                 if (data.ErrorCode == '0') {
-                  app.dialog.alert("Success");
+                  app.dialog.alert("Success!");
                 }
                 else {
                   app.dialog.alert("Failed!");
@@ -132,7 +132,7 @@
                 }
               },
               complete: function (xhr, status) {
-                alert("complete");
+                alert("complete!");
                 SpinnerPlugin.activityStop();
               }
             })
