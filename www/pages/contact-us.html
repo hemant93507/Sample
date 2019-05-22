@@ -89,6 +89,12 @@
     return {
       methods: {
         contactSubmit: function (lat, lon) {
+          nativegeocoder.reverseGeocode(success, failure, lat, lon, { useLocale: true, maxResults: 1 });
+          function success(result) {
+            var firstResult = result[0];
+            var state = firstResult.administrativeArea;
+            var location = firstResult.subLocality + ',' + firstResult.locality + ',' + firstResult.subAdministrativeArea;
+            var zipcode = firstResult.postalCode;
             var name = $$('#contact_us_page input[name=name]').val();
             var email = $$('#contact_us_page input[name=email]').val();
             var mobile_number = $$('#contact_us_page input[name=mobile_number]').val();
@@ -131,6 +137,11 @@
                 SpinnerPlugin.activityStop();
               }
             })
+          }
+          function failure(err) {
+            //console.log(err);
+            alert(err);
+          }
         },
 
         Submit: function () {
@@ -149,7 +160,7 @@
               self.Register(latitude, longitude);
             };
             function onError(error) {
-              console.log(error);
+              alert(error);
             }
             navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
           }
