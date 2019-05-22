@@ -107,7 +107,7 @@
               mobile_number: mobile_number,
               message: message,
               lat: lat,
-              long: lon,
+              lon: lon,
             };
             //alert("done2");
             app.request({
@@ -128,9 +128,11 @@
                 //alert("data");
                 if (data.ErrorCode == '0') {
                   app.dialog.alert("Success!");
+                  app.dialog.alert(data.ErrorCode);
                 }
                 else {
                   app.dialog.alert("Failed!");
+                  app.dialog.alert(data.ErrorCode);
                   //window.plugins.toast.show(data.ErrorMessage, 'long', 'bottom');
                 }
               },
