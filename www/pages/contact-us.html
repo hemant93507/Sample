@@ -89,7 +89,6 @@
     return {
       methods: {
         contactSubmit: function (lat, lon) {
-          alert(lat);
           nativegeocoder.reverseGeocode(success, failure, lat, lon, { useLocale: true, maxResults: 1 });
           function success(result) {
             alert("done");
@@ -123,7 +122,7 @@
                 alert(statusMessage(status));
               },
               success: function (data, status, xhr) {
-                console.log(data);
+                alert("data");
                 if (data.ErrorCode == '0') {
                   app.dialog.alert("Success");
                 }
@@ -133,6 +132,7 @@
                 }
               },
               complete: function (xhr, status) {
+                alert("complete");
                 SpinnerPlugin.activityStop();
               }
             })
