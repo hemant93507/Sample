@@ -88,8 +88,8 @@
     var BaseURL = 'http://brandstudioz.co.in/uts/';
     return {
       methods: {
-        contactSubmit: function (lat, long) {
-          nativegeocoder.reverseGeocode(success, failure, lat, long, { useLocale: true, maxResults: 1 });
+        contactSubmit: function (lat, lon) {
+          nativegeocoder.reverseGeocode(success, failure, lat, lon, { useLocale: true, maxResults: 1 });
           function success(result) {
             alert("done");
             // var firstResult = result[0];
@@ -107,7 +107,7 @@
               mobile_number: mobile_number,
               message: message,
               lat: lat,
-              long: long,
+              long: lon,
             };
             alert("done2");
             app.request({
