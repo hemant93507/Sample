@@ -89,8 +89,10 @@
     return {
       methods: {
         contactSubmit: function (lat, lon) {
+          alert(lat);
           nativegeocoder.reverseGeocode(success, failure, lat, lon, { useLocale: true, maxResults: 1 });
           function success(result) {
+            alert("done");
             // var firstResult = result[0];
             // var state = firstResult.administrativeArea;
             // var location = firstResult.subLocality + ',' + firstResult.locality + ',' + firstResult.subAdministrativeArea;
@@ -150,15 +152,18 @@
               maximumAge: 3000
             }
             function onSuccess(position) {
-              SpinnerPlugin.activityStart('Loading...', { dimBackground: true });
+              //SpinnerPlugin.activityStart('Loading...', { dimBackground: true });
               var latitude = position.coords.latitude;
               var longitude = position.coords.longitude;
+              var a = "a";
+              var b = "b";
               //alert('Latitude: ' +latitude+ '\n' +'Longitude: '+longitude);
               //console.log("latitude"+latitude);
               self.contactSubmit(latitude, longitude);
             };
             function onError(error) {
               alert(error);
+              console.log(error);
             }
             navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
           }
