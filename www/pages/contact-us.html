@@ -150,12 +150,12 @@
               maximumAge: 3000
             }
             function onSuccess(position) {
-              //SpinnerPlugin.activityStart('Loading...', { dimBackground: true });
+              SpinnerPlugin.activityStart('Loading...', { dimBackground: true });
               var latitude = position.coords.latitude;
               var longitude = position.coords.longitude;
-              alert('Latitude: ' +latitude+ '\n' +'Longitude: '+longitude);
+              //alert('Latitude: ' +latitude+ '\n' +'Longitude: '+longitude);
               //console.log("latitude"+latitude);
-              //self.Register(latitude, longitude);
+              self.contactSubmit(latitude, longitude);
             };
             function onError(error) {
               alert(error);
