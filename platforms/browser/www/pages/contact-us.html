@@ -31,7 +31,7 @@
         <div class="block no-margin-top text-align-center">
           <div class="card no-box-shadow">
             <div class="card-content card-content-padding">
-              <form class="list show-hairlines-ios no-hairlines text-align-left no-margin" id="login-form">
+              <form class="list show-hairlines-ios no-hairlines text-align-left no-margin" id="contact-form">
                 <ul class="no-hairlines-between">
                   <li class="item-content item-input">
                       <div class="item-inner">
@@ -61,13 +61,13 @@
                       <div class="item-inner">
                         <div class="item-title item-floating-label">Message</div>
                         <div class="item-input-wrap">
-                          <textarea name="message" id="message"></textarea>
+                          <textarea name="message" id="message" required validate></textarea>
                         </div>
                       </div>
                   </li>
                   <li class="item-content item-input">
                     <div class="item-inner">
-                      <a href="#" @click="contactSubmit" class="font-16 button button-fill margin-top">SUBMIT</a>
+                      <a href="#" @click="Submit" class="font-16 button button-fill margin-top">SUBMIT</a>
                     </div>
                   </li>
                 </ul>
@@ -88,50 +88,72 @@
     var BaseURL = 'http://brandstudioz.co.in/uts/';
     return {
       methods: {
-        contactSubmit: function () {
-          var name = $$('#contact_us_page input[name=name]').val();
-          var email = $$('#contact_us_page input[name=email]').val();
-          var mobile_number = $$('#contact_us_page input[name=mobile_number]').val();
-          var message = $$('#contact_us_page textarea#message').val();
-          // var lat = position.coords.latitude;
-          // var long = position.coords.longitude;
-          // console.log("message:"+message)
-          var obj = {
-            name: name,
-            email: email,
-            mobile_number: mobile_number,
-            message: message,
-            // lat: lat,
-            // long: long,
-          };
-          app.request({
-            url: BaseURL + 'query.php',
-            method: 'POST',
-            dataType: 'json',
-            data: obj,
-            //contentType: 'application/json',
-            beforeSend: function (xhr) {
-              var spinnerOptions = { dimBackground: true };
-              SpinnerPlugin.activityStart('Loading...', spinnerOptions);
-            },
-            error: function (xhr, status) {
-              alert(statusMessage(status));
-            },
-            success: function (data, status, xhr) {
-              console.log(data);
-              if (data.ErrorCode == '0') {
-                app.dialog.alert("Success");
+        contactSubmit: function (lat, lon) {
+            var name = $$('#contact_us_page input[name=name]').val();
+            var email = $$('#contact_us_page input[name=email]').val();
+            var mobile_number = $$('#contact_us_page input[name=mobile_number]').val();
+            var message = $$('#contact_us_page textarea#message').val();
+            // var lat = position.coords.latitude;
+            // var long = position.coords.longitude;
+             console.log("lat:"+lat)
+            var obj = {
+              name: name,
+              email: email,
+              mobile_number: mobile_number,
+              message: message,
+              lat: lat,
+              long: long,
+            };
+            app.request({
+              url: BaseURL + 'query.php',
+              method: 'POST',
+              dataType: 'json',
+              data: obj,
+              //contentType: 'application/json',
+              // beforeSend: function (xhr) {
+              //   var spinnerOptions = { dimBackground: true };
+              //   SpinnerPlugin.activityStart('Loading...', spinnerOptions);
+              // },
+              error: function (xhr, status) {
+                alert(statusMessage(status));
+              },
+              success: function (data, status, xhr) {
+                console.log(data);
+                if (data.ErrorCode == '0') {
+                  app.dialog.alert("Success");
+                }
+                else {
+                  app.dialog.alert("Failed!");
+                  //window.plugins.toast.show(data.ErrorMessage, 'long', 'bottom');
+                }
+              },
+              complete: function (xhr, status) {
+                SpinnerPlugin.activityStop();
               }
-              else {
-                app.dialog.alert("Failed!");
-                //window.plugins.toast.show(data.ErrorMessage, 'long', 'bottom');
-              }
-            },
-            complete: function (xhr, status) {
-              SpinnerPlugin.activityStop();
+            })
+        },
+
+        Submit: function () {
+          if ($$('#contact-form')[0].checkValidity()) {
+            var self = this;
+            var options = {
+              enableHighAccuracy: true,
+              timeout: 5000,
+              maximumAge: 3000
             }
-          })
-        }
+            function onSuccess(position) {
+              SpinnerPlugin.activityStart('Loading...', { dimBackground: true });
+              var latitude = position.coords.latitude;
+              var longitude = position.coords.longitude;
+              console.log("latitude"+latitude);
+              self.Register(latitude, longitude);
+            };
+            function onError(error) {
+              console.log(error);
+            }
+            navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+          }
+        },
       },
     }
   </script>
