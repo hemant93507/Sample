@@ -186,10 +186,10 @@
       },
       image: function () {
         navigator.camera.getPicture(onSuccess, onFail, {
-          sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+          sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
           quality: 100,
           targetWidth: 512,
-          targetHeight: 512,
+          targetHeight: 512, 
           correctOrientation: true,
 		      allowEdit: true,
           destinationType: Camera.DestinationType.DATA_URL,
