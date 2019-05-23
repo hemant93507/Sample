@@ -91,17 +91,20 @@
         contactSubmit: function (lat, lon) {
           nativegeocoder.reverseGeocode(success, failure, lat, lon, { useLocale: true, maxResults: 1 });
           function success(result) {
-            //alert("done");
-            // var firstResult = result[0];
-            // var state = firstResult.administrativeArea;
-            // var location = firstResult.subLocality + ',' + firstResult.locality + ',' + firstResult.subAdministrativeArea;
-            // var zipcode = firstResult.postalCode;
+            alert("done");
+            var firstResult = result[0];
+            var state = firstResult.administrativeArea;
+            var location = firstResult.subLocality + ',' + firstResult.locality + ',' + firstResult.subAdministrativeArea;
+            var zipcode = firstResult.postalCode;
             var name = $$('#contact_us_page input[name=name]').val();
             var email = $$('#contact_us_page input[name=email]').val();
             var mobile_number = $$('#contact_us_page input[name=mobile_number]').val();
             var message = $$('#contact_us_page textarea#message').val();
-            alert(lat);
-            alert(lon);
+            alert("lat:"+lat);
+            alert("state:"+state);
+            alert("location:"+location);
+            alert("zipcode:"+zipcode);
+            alert("name:"+name);
             var obj = {
               name: name,
               email: email,
