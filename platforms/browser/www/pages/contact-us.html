@@ -193,8 +193,8 @@
           destinationType: Camera.DestinationType.DATA_URL,
         });
         function onSuccess(imageData) {
-          var image = document.getElementById('image');
-          image.src = "data:image/jpeg;base64," + imageData;
+          var image_src = document.getElementById('image');
+          image_src.src = "data:image/jpeg;base64," + imageData;
           image = "data:image/jpeg;base64," + imageData;
         }
         function onFail(message) {
