@@ -65,13 +65,21 @@
                         </div>
                       </div>
                   </li>
-                  <li class="item-content item-input">
+                  <!-- <li class="item-content item-input">
                     <div class="item-inner margin-top">
                       <img id="image" @click="image" src="img/upload.png"
                         style="width: 50px;height: 50px;vertical-align: middle;" />
                       Image
                     </div>
+                  </li> -->
+                  <li class="item-content item-input">
+                    <div class="item-inner margin-top">
+                      <img id="image" src="img/upload.png"
+                        style="width: 50px;height: 50px;vertical-align: middle;" />
+                        <p><a @click="selectMethod" href="#">Select Image</a></p>
+                    </div>
                   </li>
+                  
                   <li class="item-content item-input">
                     <div class="item-inner">
                       <a href="#" @click="Submit" class="font-16 button button-fill margin-top">SUBMIT</a>
@@ -95,6 +103,14 @@
   var image = '';
   var BaseURL = 'http://brandstudioz.co.in/uts/';
   return {
+    on: {
+      pageInit: function(){
+        var hh = "hemant";
+        
+       
+        //this.selectMethod(hh);
+      }
+    },
     methods: {
       contactSubmit: function (lat, lon) {
         nativegeocoder.reverseGeocode(success, failure, lat, lon, { useLocale: true, maxResults: 1 });
@@ -160,7 +176,6 @@
           alert(err);
         }
       },
-
       Submit: function () {
         if ($$('#contact-form')[0].checkValidity()) {
           var self = this;
@@ -184,7 +199,7 @@
           navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
         }
       },
-      image: function () {
+      imageGallery: function () {
         navigator.camera.getPicture(onSuccess, onFail, {
           sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
           quality: 100,
@@ -204,7 +219,56 @@
           console.log(message);
         }
       },
+      imageCamera: function () {
+        navigator.camera.getPicture(onSuccess, onFail, {
+          quality: 100,
+          targetWidth: 512,
+          targetHeight: 512,
+          correctOrientation: true,
+		      allowEdit: true,
+          destinationType: Camera.DestinationType.DATA_URL,
+        });
+        function onSuccess(imageData) {
+          var image_src = document.getElementById('image');
+          image_src
+          .src = "data:image/jpeg;base64," + imageData;
+          image = "data:image/jpeg;base64," + imageData;
+        }
+        function onFail(message) {
+          console.log(message);
+        }
+      },
+      selectMethod: function () {
+        var self = this;
+        var ac5 = app.actions.create({
+          buttons: [
+            {
+              text: 'Camera',
+              onClick: function () {
+                self.imageCamera();
+              }
+            },
+            {
+              text: 'Gallery',
+              onClick: function () {
+                self.imageGallery();
+              }
+            },
+            {
+              text: 'Cancel',
+              onClick: function () {
+                self.cancel();
+              }
+            },
+          ]
+        });
+        ac5.open();
+      },
+      cancel: function () {
+        app.dialog.alert('Cancel clicked')
+      },
     },
+    
     
   }
 </script>
